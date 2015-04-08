@@ -22,6 +22,7 @@ class TimeentriesController < ApplicationController
 		@timeentry = Timeentry.new
 		@timeentry.task = @task
 		@timeentry.start_time = start_time
+		@timeentry.user_id = current_user.id
 
 		@timeentry.save!
 
@@ -46,6 +47,6 @@ class TimeentriesController < ApplicationController
 
 	private
 	def timeentry_params
-		params.require(:timeentry).permit(:note,:duration,:start_time)
+		params.require(:timeentry).permit(:note,:duration,:start_time, :user_id)
 	end
 end

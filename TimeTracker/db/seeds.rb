@@ -2,7 +2,7 @@ User.create!(username: "Bob", password: "password", password_confirmation: "pass
 Customer.create!(company: "Milton")
 Project.create!(project_name: "Paradise Lost", customer_id: 1)
 Task.create!(task_name: "it is a long road", project_id: 1)
-Timeentry.create!(project_id: 1, user_id:1, task_id: 1, duration: 100, note: "adfaafldjasljflkasjfl afdaljflsa")
+Timeentry.create!(project_id: 1, user_id:1, task_id: 1, start_time: Time.now, duration: 100, note: "adfaafldjasljflkasjfl afdaljflsa")
 
 
 

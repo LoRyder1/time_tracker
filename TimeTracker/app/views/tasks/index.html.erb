@@ -1,6 +1,7 @@
 <h1>Tasks</h1>
-<%= link_to 'New Task', new_task_path  %>
-
+	<p>
+		<%= link_to 'New Task', new_task_path  %>
+	</p>
 <% if flash[:error] %>
 	<p>
 		<%= flash[:error] %>
@@ -18,6 +19,7 @@
 			<th></th>
 			<th>Start Time</th>
 			<th>End Time</th>
+			<th>New Time Entry</th>
 		</tr>
 		<% @tasks.each do |task| %>
 		<tr>

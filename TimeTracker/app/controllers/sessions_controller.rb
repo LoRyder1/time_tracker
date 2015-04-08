@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
 		user = User.authenticate(params[:user_email], params[:user_password])
 		if user
 			session[:user_id] = user.id
-			redirect_to customers_path
+			redirect_to tasks_path
 		else
 			flash[:error] = "Invalid email or password"
 			render 'new'
