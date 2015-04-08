@@ -1,8 +1,8 @@
 User.create!(username: "Bob", password: "password", password_confirmation: "password", email: "bob@mail.com")
-Customer.create!(company: "Big company")
-Project.create!(project_name: "something1", customer_id: 1)
-Task.create!(task_name: "blah blah")
-Timeentry.create!(project_id: 1, user_id:1, task_id: 1)
+Customer.create!(company: "Milton")
+Project.create!(project_name: "Paradise Lost", customer_id: 1)
+Task.create!(task_name: "it is a long road", project_id: 1)
+Timeentry.create!(project_id: 1, user_id:1, task_id: 1, duration: 100, note: "adfaafldjasljflkasjfl afdaljflsa")
 
 
 

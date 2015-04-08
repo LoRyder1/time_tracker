@@ -42,3 +42,18 @@ header {
     }
   }
 }
+
+table {
+  width: 70%;
+  display: inline-block;
+  th {
+    font-family: $headline;
+    padding: 1%;
+  }
+  td {
+    padding: 1%;
+  }
+  th, td {
+    border: 1px solid #bbb;
+  }
+}

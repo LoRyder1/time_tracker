@@ -1,4 +1,5 @@
 <h1>Tasks</h1>
+<%= link_to 'New Task', new_task_path  %>
 
 <% if flash[:error] %>
 	<p>
@@ -7,26 +8,30 @@
 	
 <% end %>
 
-<%= link_to 'New Task', new_task_path  %>
 
-<p>
-	<% @tasks.each do |task| %>
-	<ol>
-		<li><%= task.task_name %></li>
-		<ul>
-			<li><%= link_to 'Start', new_task_timeentry_path(task) %></li>
-			<ul>
-				<% task.timeentries.each do |te| %>
-					<li><%= te.start_time %></li>
-					<li><%= te.duration %></li>
-					<a href="/tasks/<%= task.id %>/timeentries/<%= te.id %>/edit">Edit</a>
-				<% end %>
-			</ul>
 
-			<li></li>
-		</ul>
-	<% end %>
-	</ol>
+
+	<table>
+		<tr>
+			<th>Tasks</th>
+			<th></th>
+			<th></th>
+			<th>Start Time</th>
+			<th>End Time</th>
+		</tr>
+		<% @tasks.each do |task| %>
+		<tr>
+			<td><%= task.task_name %></td>
+			<td><%= link_to 'Start', new_task_timeentry_path(task) %></td>
+			<% task.timeentries.each do |te| %>
+			<td><a href="/tasks/<%= task.id %>/timeentries/<%= te.id %>/edit">Stop Timer</a></td>
+			<td><%= te.start_time %></td>
+			<td><%= te.duration %></td>
+			<% end %>
+		</tr>
+		<% end %>
+
+	</table>
 
 </p>
 

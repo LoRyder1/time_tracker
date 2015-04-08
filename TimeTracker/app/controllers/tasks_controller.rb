@@ -5,6 +5,8 @@ class TasksController < ApplicationController
 
 	def new
 		@task = Task.new
+		@projects = Project.all
+
 	end
 
 	def create
@@ -16,7 +18,6 @@ class TasksController < ApplicationController
 
 	private
 	def task_params
-		params.require(:task).permit(:task_name)
-		
+		params.require(:task).permit(:task_name, :project_id)
 	end
 end

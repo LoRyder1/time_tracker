@@ -3,6 +3,11 @@
 <%= form_for @task do |f| %>
 
 	<p>
+		<% projects_array = @projects.map {|prjct| [prjct.project_name, prjct.id]} %>
+		<%= f.select :project_id, options_for_select(projects_array) %>
+	</p>
+
+	<p>
 		<%= f.text_field :task_name, placeholder: "task_name" %>
 	</p>
 
