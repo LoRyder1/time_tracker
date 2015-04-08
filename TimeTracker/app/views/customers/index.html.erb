@@ -1,0 +1,7 @@
+<h1>Welcome <%= current_user.username %></h1>
+
+<% @customers.each do |customer| %>
+<ul>
+	<li><%= link_to "#{customer.company}", customer_path(customer)  %></li>
+</ul>
+<% end %>

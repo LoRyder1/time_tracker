@@ -1,0 +1,30 @@
+<h1>New Time Entry</h1>
+
+<!--     t.integer  "project_id"
+    t.integer  "user_id"
+    t.integer  "task_id"
+    t.integer  "duration"
+    t.datetime "start_time"
+    t.text     "note" -->
+
+
+<div class="stopwatch">
+	
+</div>
+
+
+
+<div class="cr_timeentry">
+<%= form_for ([@task, @task.timeentries.build]) do |f| %>
+
+	<p>
+		<%= f.text_area :note, placeholder: 'note' %>
+	</p>
+
+
+	<p>
+		<%= f.submit 'Start Timer'%>
+	</p>
+<% end %>
+
+</div>

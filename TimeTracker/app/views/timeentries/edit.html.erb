@@ -1,0 +1,21 @@
+<h1>Edit</h1>
+
+<% if flash[:error] %>
+	<p>
+		<%= flash[:error] %>
+	</p>
+	
+<% end %>
+
+
+<%= @timeentry.start_time %>
+<%= @timeentry.duration %>
+<%= @timeentry.note %>
+
+
+<%= form_for ([@timeentry.task, @timeentry]) do |f| %>
+
+	<p>
+		<%= f.submit 'Stop' %>
+	</p>
+<% end %>

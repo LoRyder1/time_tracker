@@ -13,16 +13,17 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :create]
 
-  resources :timeentries do
-    resources :tasks
-    resources :projects do
-      resources :customers
-    end
+  resources :tasks do
+    resources :timeentries
+  end
+
+  resources :customers do
+    resources :projects 
   end
 
 
-  
-  
+
+
 
 
 

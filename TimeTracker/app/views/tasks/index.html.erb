@@ -1,0 +1,34 @@
+<h1>Tasks</h1>
+
+<% if flash[:error] %>
+	<p>
+		<%= flash[:error] %>
+	</p>
+	
+<% end %>
+
+<%= link_to 'New Task', new_task_path  %>
+
+<p>
+	<% @tasks.each do |task| %>
+	<ol>
+		<li><%= task.task_name %></li>
+		<ul>
+			<li><%= link_to 'Start', new_task_timeentry_path(task) %></li>
+			<ul>
+				<% task.timeentries.each do |te| %>
+					<li><%= te.start_time %></li>
+					<li><%= te.duration %></li>
+					<a href="/tasks/<%= task.id %>/timeentries/<%= te.id %>/edit">Edit</a>
+				<% end %>
+			</ul>
+
+			<li></li>
+		</ul>
+	<% end %>
+	</ol>
+
+</p>
+
+<p>
+</p>
