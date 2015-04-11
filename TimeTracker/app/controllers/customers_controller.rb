@@ -3,6 +3,6 @@ class CustomersController < ApplicationController
 		@customers = Customer.all
 	end
 	def show
-		@projects = Project.all
+		@projects = Project.where(customer_id: params[:id])
 	end
 end

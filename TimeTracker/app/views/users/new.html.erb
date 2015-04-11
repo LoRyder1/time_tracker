@@ -16,27 +16,20 @@
 
 <%= form_for @user do |f| %>
 
-	<p>
-		<%= f.text_field :username, placeholder: 'name' %>
-	</p>
+	<br><%= f.text_field :username, placeholder: 'name' %>
+	
+	<br><%= f.text_field :display_name, placeholder: 'display name' %>
+	
+	<br><%= f.text_field :email, placeholder: 'email' %>
 
-	<p>
-		<%= f.text_field :display_name, placeholder: 'display name' %>
-	</p>
+	<br><%= f.password_field :password, placeholder: 'password' %>
 
-	<p>
-		<%= f.text_field :email, placeholder: 'email' %>
-	</p>
+	<br><%= f.password_field :password_confirmation, placeholder: 'password confirmation' %>
+	
+	<br>
+	<br><%= f.submit 'Sign Up' %>
 
-	<p>
-		<%= f.password_field :password, placeholder: 'password' %>
-	</p>
-
-	<p>
-		<%= f.password_field :password_confirmation, placeholder: 'password confirmation' %>
-	</p>
-
-	<%= f.submit 'Sign Up' %>
+	<br>
 <% end %>
 
 </div>

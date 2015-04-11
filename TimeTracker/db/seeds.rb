@@ -14,6 +14,7 @@ Timeentry.create!(project_id: 1, user_id:1, task_id: 1, start_time: Time.now, du
 require 'csv'
 
 import_file = "db/Customers.csv"
+# import_file = "Customers.csv"
 
 # CSV.open(import_file, skip_blanks: true).reject { |row| row.all?(&:nil?) }
 
@@ -23,12 +24,21 @@ array = []
 x.each do |line|
   array << line.gsub("\r","")
 end
-File.new("C_reformatted.csv", "w+")
-File.open("C_reformatted.csv", 'w') do |file|
+
+new_file = "db/C_reformatted.csv"
+# new_file = "C_reformatted.csv"
+
+File.new(new_file, "w+")
+File.open(new_file, 'w') do |file|
   array.each do |x|
     file << x
   end
 end
+
+# CSV.foreach(new_file, headers: true, header_converters: :symbol) do |row_data|
+#   Customer.new(row_data)
+# end
+
 
 
 
@@ -60,22 +70,30 @@ class Parse
 
   def load_customers(filename)
     CSV.foreach(filename, headers: true, header_converters: :symbol, skip_blanks: true) do |row_data|
-      @customers << Customer1.new(row_data)
+      customers << Customer1.new(row_data)
+      # Customer.create!(row_data)
+    end
+  end
+
+  def create_customers
+    customers.each do |customer|
+      Customer.create!(company: customer.company, address1: customer.address1, address3: customer.address3, city: customer.city, state: customer.state, zip: customer.zip, phone1: customer.phone1, phone2: customer.phone2, fax1: customer.fax1, fax2: customer.fax2, email: customer.email, website: customer.website)
     end
   end
 end
 
-reformatted_file = "C_reformatted.csv"
+
 
 parse = Parse.new
 
-parse.load_customers(reformatted_file)
+parse.load_customers(new_file)
 
-parsed_customers = parse.customers
+parse.create_customers
 
-parsed_customers.each do |customer|
-  Customer.create!(company: customer.company, address1: customer.address1, address3: customer.address3, city: customer.city, state: customer.state, zip: customer.zip, phone1: customer.phone1, phone2: customer.phone2, fax1: customer.fax1, fax2: customer.fax2, email: customer.email, website: customer.website)
-end
+
+# parsed_customers.each do |customer|
+#   Customer.create!(company: customer.company, address1: customer.address1, address3: customer.address3, city: customer.city, state: customer.state, zip: customer.zip, phone1: customer.phone1, phone2: customer.phone2, fax1: customer.fax1, fax2: customer.fax2, email: customer.email, website: customer.website)
+# end
 
 
 
