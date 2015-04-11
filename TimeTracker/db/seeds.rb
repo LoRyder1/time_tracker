@@ -1,20 +1,8 @@
 User.create!(username: "Bob", password: "password", password_confirmation: "password", email: "bob@mail.com")
 Customer.create!(company: "Milton")
-# Project.create!(project_name: "Paradise Lost", customer_id: 1)
-# Task.create!(task_name: "it is a long road", project_id: 1)
-# Timeentry.create!(project_id: 1, user_id:1, task_id: 1, start_time: Time.now, duration: 100, note: "adfaafldjasljflkasjfl afdaljflsa")
-
-
-
-
-
-
-
-
-
-
-
-
+Project.create!(project_name: "Paradise Lost", customer_id: 1)
+Task.create!(task_name: "it is a long road", project_id: 1)
+Timeentry.create!(project_id: 1, user_id:1, task_id: 1, start_time: Time.now, duration: 100, note: "adfaafldjasljflkasjfl afdaljflsa")
 
 
 # This file should contain all the record creation needed to seed the database with its default values.
@@ -22,16 +10,29 @@ Customer.create!(company: "Milton")
 #
 # Examples:
 #
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
 
 require 'csv'
-require 'forecast_io'
 
-# Create a OneCrime class so that when the crimes are parsed from the 2013 Chicago Crime CSV file, the crimes can be converted into Ruby Crime objects so that they can be manipulated in Ruby
+import_file = "db/Customers.csv"
 
-class Customer
+# CSV.open(import_file, skip_blanks: true).reject { |row| row.all?(&:nil?) }
+
+
+x = File.open(import_file)
+array = []
+x.each do |line|
+  array << line.gsub("\r","")
+end
+File.new("C_reformatted.csv", "w+")
+File.open("C_reformatted.csv", 'w') do |file|
+  array.each do |x|
+    file << x
+  end
+end
+
+
+
+class Customer1
 	attr_reader :company, :address1, :address3, :city, :state, :zip, :phone1, :phone2, :fax1, :fax2, :email, :website
   def initialize(options={})
 		@company = options[:company]
@@ -58,35 +59,24 @@ class Parse
   end
 
   def load_customers(filename)
-    CSV.foreach(filename, headers: true, header_converters: :symbol) do |row_data|
-      @customers << Customer.create!(row_data)
+    CSV.foreach(filename, headers: true, header_converters: :symbol, skip_blanks: true) do |row_data|
+      @customers << Customer1.new(row_data)
     end
   end
 end
 
-# Create an instance of Parse in order to load the crimes from the CSV file.
+reformatted_file = "C_reformatted.csv"
+
 parse = Parse.new
 
-parse.load_customers("Customers.csv")
+parse.load_customers(reformatted_file)
 
-p parse.customers
+parsed_customers = parse.customers
 
-
-
-
-
-
+parsed_customers.each do |customer|
+  Customer.create!(company: customer.company, address1: customer.address1, address3: customer.address3, city: customer.city, state: customer.state, zip: customer.zip, phone1: customer.phone1, phone2: customer.phone2, fax1: customer.fax1, fax2: customer.fax2, email: customer.email, website: customer.website)
+end
 
 
 
 
-
-
-
-# parsed_crimes = parse.crimes
-
-# Once the crimes are loaded and parsed, create Crimes that can be stored in the database
-
-# parsed_crimes.each do |wrongdoing|
-#   Crime.create!(date: wrongdoing.date, primary_type: wrongdoing.primary_type, description: wrongdoing.description, location_description: wrongdoing.location_description, latitude: wrongdoing.latitude, longitude: wrongdoing.longitude, community_area: wrongdoing.community_area, district: wrongdoing.district, block: wrongdoing.block)
-# end
