@@ -17,12 +17,14 @@ class TimeentriesController < ApplicationController
 	end
 
 	def create
+		# raise params.inspect
 		@task = Task.find(params[:task_id])
 		start_time = Time.now
 		@timeentry = Timeentry.new
 		@timeentry.task = @task
 		@timeentry.start_time = start_time
 		@timeentry.user_id = current_user.id
+		@timeentry.note = params[:timeentry][:note]
 
 		@timeentry.save!
 

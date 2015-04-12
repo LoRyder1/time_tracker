@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
 	def index
 		@tasks = Task.all
+		# @timeentries = Timeentry.where("user_id: current_user.id AND")
+
 	end
 
 	def new

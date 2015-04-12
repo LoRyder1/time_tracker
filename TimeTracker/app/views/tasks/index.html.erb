@@ -1,40 +1,58 @@
 <h1>Tasks</h1>
+<h2>Welcome <%= current_user.username %></h2>
 <br><%= link_to 'Back', root_path %>
 	<p>
 		<%= link_to 'New Task', new_task_path  %>
 	</p>
+
 <% if flash[:error] %>
+
 	<p>
 		<%= flash[:error] %>
 	</p>
 	
 <% end %>
 
-
-
-
 	<table>
 		<tr>
 			<th>Tasks</th>
 			<th></th>
-			<th></th>
-			<th>Start Time</th>
-			<th>Duration</th>
-
+			<th>Total Time</th>
 		</tr>
 		<% @tasks.each do |task| %>
 		<tr>
 			<td><%= task.task_name %></td>
-			<td><%= link_to 'Start', new_task_timeentry_path(task) %></td>
+			<td><%= link_to 'Start a Time Entry', new_task_timeentry_path(task) %></td>
+			<td><%= Task.total(task, current_user) %></td>
+		</tr>
+		<% end %>
+	</table>
+
+	<table>
+		<tr>
+			<th>Task</th>
+			<th>Stop Time</th>
+			<th>Start Time</th>
+			<th>Duration</th>
+			<th>Notes</th>
+		</tr>
+		<% @tasks.each do |task| %>
 			<% task.timeentries.each do |te| %>
+		<tr>
+		<% if te.user_id == current_user.id %>
+			<td><%= task.task_name %></td>
 			<td><a href="/tasks/<%= task.id %>/timeentries/<%= te.id %>/edit">Stop Timer</a></td>
 			<td><%= te.start_time %></td>
 			<td><%= te.duration %></td>
-			<% end %>
-		</tr>
+			<td><%= te.note %></td>
 		<% end %>
+		</tr>
+			<% end %>
+		<% end %>
+		
 
 	</table>
+
 
 </p>
 
