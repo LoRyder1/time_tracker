@@ -1,0 +1,16 @@
+<h1>Projects</h1>
+
+
+<h3><%= @customer.company %></h3>
+<ul>
+	<li><%= @customer.city %></li>
+	<li><%= @customer.phone1 %></li>
+</ul>
+
+<br><%= link_to 'New Project', new_customer_project_path(@customer) %>
+
+<% @customer.projects.each do |p| %>
+	<h4><%= p.project_name %></h4>
+<% end %>
+
+<%= link_to 'Go To Tasks', tasks_path %>

@@ -71,7 +71,6 @@ class Parse
   def load_customers(filename)
     CSV.foreach(filename, headers: true, header_converters: :symbol, skip_blanks: true) do |row_data|
       customers << Customer1.new(row_data)
-      # Customer.create!(row_data)
     end
   end
 

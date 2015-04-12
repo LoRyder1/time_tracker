@@ -15,12 +15,16 @@
 
 	<table>
 		<tr>
+			<th>Company</th>
+			<th>Project</th>
 			<th>Tasks</th>
 			<th></th>
 			<th>Total Time</th>
 		</tr>
 		<% @tasks.each do |task| %>
 		<tr>
+			<td><%= task.project.customer.company %></td>
+			<td><%= task.project.project_name %></td>
 			<td><%= task.task_name %></td>
 			<td><%= link_to 'Start a Time Entry', new_task_timeentry_path(task) %></td>
 			<td><%= Task.total(task, current_user) %></td>

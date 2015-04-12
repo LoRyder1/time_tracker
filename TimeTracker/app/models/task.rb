@@ -8,11 +8,8 @@ class Task < ActiveRecord::Base
 		all_te.each do |te|
 			durations << te.duration
 		end
-		# raise durations.inspect
-		if durations.include?(nil)
-			durations.delete(nil)
-		else
-			durations.inject{ |sum,x| sum += x}
-		end
+		
+		durations.delete(nil)
+		durations.inject{ |sum,x| sum += x}
 	end
 end

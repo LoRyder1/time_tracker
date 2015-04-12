@@ -3,6 +3,6 @@
 
 <% @customers.each do |customer| %>
 <ul>
-	<li><%= link_to "#{customer.company}", customer_path(customer)  %></li>
+	<li><%= link_to "#{customer.company}", customer_projects_path(customer)  %></li>
 </ul>
 <% end %>
