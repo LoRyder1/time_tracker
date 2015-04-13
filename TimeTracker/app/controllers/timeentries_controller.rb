@@ -8,7 +8,7 @@ class TimeentriesController < ApplicationController
 
 	def new
 		@task = Task.find(params[:task_id])
-		@timeentry = Timeentry.new
+		@timeentry = Timeentry.new(task_id: @task.id)
 	end
 
 	def edit

@@ -1,9 +1,7 @@
 <h1>Tasks</h1>
 <h2>Welcome <%= current_user.username %></h2>
 <br><%= link_to 'Back', root_path %>
-	<p>
-		<%= link_to 'New Task', new_task_path  %>
-	</p>
+
 
 <% if flash[:error] %>
 
@@ -13,7 +11,16 @@
 	
 <% end %>
 
-	<table>
+	
+
+<% 
+=begin %>  <% 
+
+	<p>
+		<%= link_to 'New Task', new_task_path  %>
+	</p>
+
+<table>
 		<tr>
 			<th>Company</th>
 			<th>Project</th>
@@ -32,6 +39,7 @@
 		<% end %>
 	</table>
 
+<h3>Time Entries For <%= current_user.username %></h3>
 	<table>
 		<tr>
 			<th>Task</th>
@@ -46,19 +54,46 @@
 		<% if te.user_id == current_user.id %>
 			<td><%= task.task_name %></td>
 			<td><a href="/tasks/<%= task.id %>/timeentries/<%= te.id %>/edit">Stop Timer</a></td>
-			<td><%= te.start_time %></td>
-			<td><%= te.duration %></td>
+			<td><%= te.start_time.strftime("%a, %b %d, %Y") %></td>
+		<% if te.duration != nil %>
+			<td><%= Time.at(te.duration).gmtime.strftime('%R:%S') %></td>
 			<td><%= te.note %></td>
+		<% end %>
 		<% end %>
 		</tr>
 			<% end %>
 		<% end %>
-		
-
 	</table>
+ %>
+<% 
+=end %>
 
 
+<p>
+	<%= Time.now.strftime("%A, %B %e") %>
 </p>
 
 <p>
+	<%= link_to 'New Task', new_task_path  %>
 </p>
+
+	<% @tasks.each do |t| %>
+<table>
+	<tr>
+		<th><%= t.task_name %>(<%= t.project.project_name %>)</th>
+		<th>Duration</th>
+	</tr>
+	<tr>
+		<% if t.timeentry != nil %>
+			
+		<td><%= t.timeentry.note %></td>
+		<td><%= t.timeentry.duration %></td>
+		<% end %>
+		<td><%= link_to 'Start', new_task_timeentry_path(t) %></td>
+		<td><%= link_to 'Edit', [t,t.timeentry] %></td>
+	</tr>
+</table>
+	<% end %>
+
+
+

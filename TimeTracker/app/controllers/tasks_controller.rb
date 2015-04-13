@@ -2,13 +2,11 @@ class TasksController < ApplicationController
 	def index
 		@tasks = Task.all.reverse
 		# @timeentries = Timeentry.where("user_id: current_user.id AND")
-
 	end
 
 	def new
 		@task = Task.new
 		@projects = Project.all
-
 	end
 
 	def create

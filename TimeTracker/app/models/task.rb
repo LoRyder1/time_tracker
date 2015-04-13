@@ -1,5 +1,5 @@
 class Task < ActiveRecord::Base
-	has_many :timeentries
+	has_one :timeentry
 	belongs_to :project
 
 	def self.total(task,user)
@@ -8,8 +8,9 @@ class Task < ActiveRecord::Base
 		all_te.each do |te|
 			durations << te.duration
 		end
-		
 		durations.delete(nil)
-		durations.inject{ |sum,x| sum += x}
+		sum = durations.inject{ |sum,x| sum += x}
+		
+		Time.at(sum).gmtime.strftime('%R:%S') if sum != nil
 	end
 end

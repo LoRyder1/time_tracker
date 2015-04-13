@@ -7,7 +7,7 @@
 
 
 <div class="cr_timeentry">
-<%= form_for ([@task, @task.timeentries.build]) do |f| %>
+<%= form_for ([@task, @task.build_timeentry]) do |f| %>
 
 	<p>
 		<%= f.text_area :note, placeholder: 'note' %>
