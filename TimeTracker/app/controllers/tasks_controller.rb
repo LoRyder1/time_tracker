@@ -7,6 +7,7 @@ class TasksController < ApplicationController
 	def new
 		@task = Task.new
 		@projects = Project.all
+
 	end
 
 	def create

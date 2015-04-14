@@ -74,26 +74,27 @@
 </p>
 
 <p>
-	<%= link_to 'New Task', new_task_path  %>
+	<%= link_to '  New Task  ', new_task_path, id: "button" %>
 </p>
 
 	<% @tasks.each do |t| %>
 <table>
 	<tr>
-		<th><%= t.task_name %>(<%= t.project.project_name %>)</th>
+		<th><div class="task"> <%= t.task_name %>(<%= t.project.project_name %>)</div></th>
 		<th>Duration</th>
 	</tr>
 	<tr>
 		<% if t.timeentry != nil %>
 			
-		<td><%= t.timeentry.note %></td>
+		<td><div class="note1"><div class="note"> <%= t.timeentry.note %></div></div></td>
 		<td><%= t.timeentry.duration %></td>
 		<% end %>
-		<td><%= link_to 'Start', new_task_timeentry_path(t) %></td>
-		<td><%= link_to 'Edit', [t,t.timeentry] %></td>
+		<td><%= link_to '  Start  ', new_task_timeentry_path(t), id: "button" %></td>
+		<% if t.timeentry != nil %>
+		<td><%= link_to '  Edit  ', edit_task_timeentry_path(task_id: t.id, id: t.timeentry.id), id: "button2" %></td>
+		<% end %>
 	</tr>
 </table>
 	<% end %>
 
-
-
+<h3><div class="total"> Total:<%= Task.total(current_user) %></div></h3>

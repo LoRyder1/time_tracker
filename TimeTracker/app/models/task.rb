@@ -2,8 +2,8 @@ class Task < ActiveRecord::Base
 	has_one :timeentry
 	belongs_to :project
 
-	def self.total(task,user)
-		all_te = Timeentry.where(user_id: user.id, task_id: task.id)
+	def self.total(user)
+		all_te = Timeentry.where(user_id: user.id)
 		durations = []
 		all_te.each do |te|
 			durations << te.duration
