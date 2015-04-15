@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get "/login" => "sessions#new"
   delete "/logout" => "sessions#destroy", as: "logout"
 
-  patch "/tasks/:task_id/timeentries/:id" => "timeentries#start", as: "start_timer"
+  patch "/tasks/:task_id/timeentries/:id/restart" => "timeentries#start", as: "start_timer"
 
   resources :users, only: [:new, :create]
 

@@ -13,6 +13,8 @@ class TimeentriesController < ApplicationController
 			redirect_to tasks_path
 		else
 			@timeentry = Timeentry.new(task_id: @task.id)
+
+			render :layout => false
 		end
 	end
 
@@ -24,37 +26,38 @@ class TimeentriesController < ApplicationController
 	def create
 		@task = Task.find(params[:task_id])
 		start_time = Time.now
-		@timeentry = Timeentry.new
-		@timeentry.task = @task
-		@timeentry.start_time = start_time
-		@timeentry.user_id = current_user.id
-		@timeentry.note = params[:timeentry][:note]
 
-		@timeentry.save!
+		if request.xhr?
+			@timeentry = Timeentry.new
+			@timeentry.task = @task
+			@timeentry.start_time = start_time
+			@timeentry.user_id = current_user.id
+			@timeentry.note = params[:timeentry][:note]
+			@timeentry.save!
 
-		redirect_to tasks_path
-		
+			render json: {note: @timeentry.note, id: @timeentry.id}
+		end
 	end
 
 	def update
 		@timeentry = Timeentry.find(params[:id])
 		end_time = Time.now
-		if @timeentry.duration == nil 
-			dur = end_time - (@timeentry.start_time)
-			@timeentry.duration = dur
-			@timeentry.save!
-			redirect_to tasks_path
-		elsem
-			flash[:error] = "Can Not Update same Time Entry"
-			redirect_to tasks_path
-		end
+		dur = end_time - (@timeentry.start_time)
+
+		old_dur = @timeentry.duration
+		@timeentry.duration = dur + old_dur
+		@timeentry.save!
+		redirect_to tasks_path
+
 	end
 
 	def start
-		# raise params.inspect
-		@task = Task.find(params[:task_id])
-		@timeentry
-		# raise 
+		@timeentry = Timeentry.find(params[:id])
+		start_time = Time.now
+		@timeentry.start_time = start_time
+		@timeentry.save!
+
+		redirect_to tasks_path
 	end
 
 	private

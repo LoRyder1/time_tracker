@@ -53,11 +53,11 @@ ActiveRecord::Schema.define(version: 20150408125851) do
     t.integer  "project_id"
     t.integer  "user_id"
     t.integer  "task_id"
-    t.integer  "duration"
+    t.integer  "duration",   default: 0
     t.datetime "start_time"
     t.text     "note"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   add_index "timeentries", ["project_id"], name: "index_timeentries_on_project_id"

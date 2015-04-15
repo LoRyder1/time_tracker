@@ -11,70 +11,14 @@
 	
 <% end %>
 
+<div class="cr_teshow"></div>
 	
-
-<% 
-=begin %>  <% 
-
-	<p>
-		<%= link_to 'New Task', new_task_path  %>
-	</p>
-
-<table>
-		<tr>
-			<th>Company</th>
-			<th>Project</th>
-			<th>Tasks</th>
-			<th></th>
-			<th>Total Time</th>
-		</tr>
-		<% @tasks.each do |task| %>
-		<tr>
-			<td><%= task.project.customer.company %></td>
-			<td><%= task.project.project_name %></td>
-			<td><%= task.task_name %></td>
-			<td><%= link_to 'Start a Time Entry', new_task_timeentry_path(task) %></td>
-			<td><%= Task.total(task, current_user) %></td>
-		</tr>
-		<% end %>
-	</table>
-
-<h3>Time Entries For <%= current_user.username %></h3>
-	<table>
-		<tr>
-			<th>Task</th>
-			<th>Stop Time</th>
-			<th>Start Time</th>
-			<th>Duration</th>
-			<th>Notes</th>
-		</tr>
-		<% @tasks.each do |task| %>
-			<% task.timeentries.each do |te| %>
-		<tr>
-		<% if te.user_id == current_user.id %>
-			<td><%= task.task_name %></td>
-			<td><a href="/tasks/<%= task.id %>/timeentries/<%= te.id %>/edit">Stop Timer</a></td>
-			<td><%= te.start_time.strftime("%a, %b %d, %Y") %></td>
-		<% if te.duration != nil %>
-			<td><%= Time.at(te.duration).gmtime.strftime('%R:%S') %></td>
-			<td><%= te.note %></td>
-		<% end %>
-		<% end %>
-		</tr>
-			<% end %>
-		<% end %>
-	</table>
- %>
-<% 
-=end %>
-
-
 <p>
 	<%= Time.now.strftime("%A, %B %e") %>
 </p>
 
 <p>
-	<%= link_to '  New Task  ', new_task_path, id: "button" %>
+	<%= link_to 'New Task', new_task_path, id: "new_task_btn" %>
 </p>
 
 	<% @tasks.each do |t| %>
@@ -88,14 +32,20 @@
 			
 		<td><div class="note1"><div class="note"> <%= t.timeentry.note %></div></div></td>
 		<td><%= t.timeentry.duration %></td>
+
+		<% else %>
+		<td><div class="note1">note</div></td>
+		<td>0</td>
 		<% end %>
 		
-		<td><%= link_to '  Start  ', new_task_timeentry_path(t), id: "button" %></td>
+		<td><%= link_to 'Start', new_task_timeentry_path(t), id: "start_btn" %></td>
 		<% if t.timeentry != nil %>
-		<td><%= link_to '  Edit  ', edit_task_timeentry_path(task_id: t.id, id: t.timeentry.id), id: "button2" %></td>
+		<td><%= link_to 'Edit', edit_task_timeentry_path(task_id: t.id, id: t.timeentry.id), id: "edit_btn" %></td>
+
 		<% end %>
 	</tr>
 </table>
 	<% end %>
 
 <h3><div class="total"> Total:<%= Task.total(current_user) %></div></h3>
+
