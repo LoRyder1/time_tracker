@@ -8,14 +8,19 @@
 <% end %>
 
 
-<%= @timeentry.start_time %>
-<%= @timeentry.duration %>
-<%= @timeentry.note %>
+<br>Start Time:<%= @timeentry.start_time %>
+<br>Duration:<%= @timeentry.duration %>
+<br>
+<br><%= @timeentry.note %>
 
 
 <%= form_for ([@timeentry.task, @timeentry]) do |f| %>
 
 	<p>
 		<%= f.submit 'Stop' %>
+	</p>
+
+	<p>
+		<%= link_to 'Restart Timer', start_timer_path, method: :patch %>
 	</p>
 <% end %>

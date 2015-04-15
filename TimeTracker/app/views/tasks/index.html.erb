@@ -89,6 +89,7 @@
 		<td><div class="note1"><div class="note"> <%= t.timeentry.note %></div></div></td>
 		<td><%= t.timeentry.duration %></td>
 		<% end %>
+		
 		<td><%= link_to '  Start  ', new_task_timeentry_path(t), id: "button" %></td>
 		<% if t.timeentry != nil %>
 		<td><%= link_to '  Edit  ', edit_task_timeentry_path(task_id: t.id, id: t.timeentry.id), id: "button2" %></td>

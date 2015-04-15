@@ -8,7 +8,12 @@ class TimeentriesController < ApplicationController
 
 	def new
 		@task = Task.find(params[:task_id])
-		@timeentry = Timeentry.new(task_id: @task.id)
+		if Timeentry.exists?(task_id: @task.id)
+			flash[:error] = "Can not create new time entry for same task"
+			redirect_to tasks_path
+		else
+			@timeentry = Timeentry.new(task_id: @task.id)
+		end
 	end
 
 	def edit
@@ -17,7 +22,6 @@ class TimeentriesController < ApplicationController
 	end
 
 	def create
-		# raise params.inspect
 		@task = Task.find(params[:task_id])
 		start_time = Time.now
 		@timeentry = Timeentry.new
@@ -40,11 +44,17 @@ class TimeentriesController < ApplicationController
 			@timeentry.duration = dur
 			@timeentry.save!
 			redirect_to tasks_path
-		else
+		elsem
 			flash[:error] = "Can Not Update same Time Entry"
 			redirect_to tasks_path
-			# render 'edit'
 		end
+	end
+
+	def start
+		# raise params.inspect
+		@task = Task.find(params[:task_id])
+		@timeentry
+		# raise 
 	end
 
 	private
