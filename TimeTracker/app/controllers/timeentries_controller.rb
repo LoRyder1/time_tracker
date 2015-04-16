@@ -35,7 +35,7 @@ class TimeentriesController < ApplicationController
 			@timeentry.note = params[:timeentry][:note]
 			@timeentry.save!
 
-			render json: {note: @timeentry.note, id: @timeentry.id}
+			render json: {note: @timeentry.note, id: @timeentry.id, task_id: @task.id}
 		end
 	end
 

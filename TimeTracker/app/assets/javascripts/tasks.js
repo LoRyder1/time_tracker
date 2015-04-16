@@ -19,10 +19,13 @@ $(document).ready(function() {
 		var request = $.ajax({url: link, data: data, type: "post", dataType: "JSON"});
 			
 			request.done(function(data) {
-		var new_note = "<div class='note1'>" +data.note+"</div>";
-		// $(".note1").first().remove();
-		// $(".note1").first().append(new_note);
-		$(new_note).prependTo(".note")
+		var new_note = "<div class='note'>" +data.note+"</div>";
+		var new_btn = "<td><a id='edit_btn'href='/tasks/"+data.task_id+"/timeentries/"+data.id+"/edit'>Edit</a></td>"
+		
+		$(".note1").first().empty();
+		$(".note1").first().append(new_note);
+		$("tr").eq(1).append(new_btn);
+		// $(new_note).prependTo(".note")
 
 		console.log(new_note);
 
@@ -30,4 +33,5 @@ $(document).ready(function() {
 	});
 	
 });
+
 
