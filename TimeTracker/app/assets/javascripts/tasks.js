@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 	$("#start_btn").on("click", function (e) {
 		e.preventDefault();
-		// console.log("hello")
+
 		var request = $.ajax({ url: $(this).attr("href"), type: "get"});
 			request.done(function(response){
 			$(".cr_teshow").append(response);
@@ -28,7 +28,6 @@ $(document).ready(function() {
 		$(".note1").first().append(new_note);
 		$("tr").eq(1).append(new_btn);
 
-
 			})
 	});
 	
@@ -47,3 +46,5 @@ $(".cr_teshow").ready(function(){
 		});
 	});
 });
+
+// make same bpopup for edit a timeentry
